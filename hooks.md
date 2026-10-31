@@ -175,6 +175,7 @@ hooks-priklady/
 ├── 06-opencode/              plugin pre OpenCode
 ├── 07-copilot/               hook pre Copilot vo VS Code
 ├── 08-inference-hook/        server pre Inference hooks
+├── 09-opencode2/             notifikácia o použitom nástroji
 └── projekt/                  Stop hook s testami a auditom
 ```
 
@@ -609,6 +610,10 @@ Najdôležitejšie obsluhy:
 | `event` so `file.edited` | súbor sa zmenil | `FileChanged` |  
 | `shell.env` | pred príkazom v shelli | nemá priamu obdobu |  
 
+> **Pozor:** tabuľka aj ukážka nižšie používajú rozhranie OpenCode 1.x.  
+> V OpenCode 2 sa hooky registrujú cez `Plugin.define` a `ctx.tool.hook`;  
+> takú ukážku nájdete v časti „Notifikácia o použitom nástroji“.  
+
 Súbor `hooks-priklady/06-opencode/.opencode/plugins/strazca.js`:  
 
 ```js
@@ -669,6 +674,170 @@ Plugin vyskúšate tak, že spustíte `opencode` v priečinku
 - Požiadajte OpenCode o obsah súboru `.env`.  
 - Pridajte obsluhu `tool.execute.after`, ktorá cez `client.app.log()`  
   zapíše názov každého použitého nástroja.  
+
+### Notifikácia o použitom nástroji
+
+OpenCode 2 zmenil spôsob registrácie hookov. Hook už nie je položka  
+objektu, ktorý plugin vráti, ale registruje sa metódou  
+`ctx.tool.hook(udalosť, obsluha)` na plugine vytvorenom cez  
+`Plugin.define`. Ukážka nižšie je napísaná pre OpenCode 2.2 a ukazuje aj  
+druhú vec: oznámenie na obrazovke nekreslí server, ale terminálová časť  
+pluginu.  
+
+Plugin preto pozostáva z dvoch častí, ktoré sa načítajú spolu:  
+
+| Časť | Súbor | Kde beží | Úloha |  
+|---|---|---|---|  
+| serverová | `index.ts` | server OpenCode | zapíše čas a meno nástroja |  
+| terminálová | `tui.ts` | terminál | zobrazí oznámenie |  
+
+> **Jednoducho povedané:** serverová časť je úradník, ktorý si zapíše  
+> do knihy, kedy sa čo stalo. Terminálová časť je tabuľa, ktorú vidíte.  
+
+Priebeh pri jednom volaní nástroja:  
+
+```mermaid
+flowchart LR
+    A[Model zavolá nástroj] -->|server| B[execute.before]
+    B --> C[zápis času a mena]
+    A -->|terminál| D[session.tool.called]
+    D --> E[oznámenie s časom]
+```
+
+Oznámenie (po anglicky toast) je krátky pruh v rohu terminálu, ktorý po  
+niekoľkých sekundách zmizne a nič neblokuje.  
+
+Súbor `hooks-priklady/09-opencode2/.opencode/plugins/tool-notify/index.ts`:  
+
+```ts
+import { appendFileSync } from "node:fs"
+import { homedir } from "node:os"
+import { join } from "node:path"
+import { Plugin } from "@opencode/plugin"
+
+// Voliteľný záznam o každom spustení nástroja (čas + meno).
+const SUBOR = join(homedir(), ".local", "share", "opencode", "tool-notify.log")
+
+function cas(): string {
+  const teraz = new Date()
+  const dopln = (cislo: number) => String(cislo).padStart(2, "0")
+  return `${dopln(teraz.getHours())}:${dopln(teraz.getMinutes())}:${dopln(teraz.getSeconds())}`
+}
+
+export default Plugin.define({
+  id: "tool-notify",
+  async setup(ctx) {
+    const registracia = await ctx.tool.hook("execute.before", (event) => {
+      try {
+        appendFileSync(SUBOR, `${cas()} ${event.tool}\n`)
+      } catch {
+        // Zápis nesmie zablokovať samotný nástroj.
+      }
+    })
+
+    return () => registracia.dispose()
+  },
+})
+```
+
+Hook `execute.before` sa spustí pred vykonaním každého nástroja. Objekt  
+`event` obsahuje `tool` (názov nástroja), `input` (parametre volania),  
+`sessionID` a `id` volania. Zápis je v bloku `try`/`catch`, aby prípadná  
+chyba pri zápise nezablokovala samotný nástroj. Hook `execute.after` sa  
+spustí po skončení nástroja.  
+
+Záznam do súboru je voliteľný. Ak ho nechcete, vynechajte volanie  
+`appendFileSync` a súbor `~/.local/share/opencode/tool-notify.log`  
+nevznikne; oznámenie v termináli bude fungovať ďalej.  
+
+Súbor `hooks-priklady/09-opencode2/.opencode/plugins/tool-notify/tui.ts`:  
+
+```ts
+import { Plugin } from "@opencode/plugin/tui"
+
+function cas(hodnota: number): string {
+  const teraz = new Date(hodnota)
+  const dopln = (cislo: number) => String(cislo).padStart(2, "0")
+  return `${dopln(teraz.getHours())}:${dopln(teraz.getMinutes())}:${dopln(teraz.getSeconds())}`
+}
+
+export default Plugin.define({
+  id: "tool-notify.tui",
+  setup(context) {
+    // Meno nástroja prichádza v evente `session.tool.input.started`,
+    // v `session.tool.called` už len jeho id. Preto si mená pamätáme.
+    const nazvy = new Map<string, string>()
+
+    const stopStart = context.data.on("session.tool.input.started", (event) => {
+      nazvy.set(event.data.id, event.data.name)
+    })
+
+    const stopCall = context.data.on("session.tool.called", (event) => {
+      const nazov = nazvy.get(event.data.id) ?? event.data.id
+      nazvy.delete(event.data.id)
+
+      context.ui.toast.show({
+        title: "Nástroj",
+        message: `${nazov} · ${cas(Date.now())}`,
+        variant: "info",
+        sessionID: event.data.sessionID,
+        duration: 4000,
+      })
+    })
+
+    return () => {
+      stopStart()
+      stopCall()
+    }
+  },
+})
+```
+
+Terminálová časť nepočúva hooky, ale udalosti, ktoré server vysiela.  
+Na meno nástroja potrebuje dve udalosti:  
+
+- `session.tool.input.started` prinesie `id` volania a `name` nástroja,  
+- `session.tool.called` ohlási spustenie, ale nesie len `id`.  
+
+Plugin si preto mená pamätá v `Map` a pri spustení ich podľa `id`  
+dohľadá. Čas berie v okamihu udalosti cez `Date.now()`, takže oznámenie  
+ukazuje, kedy sa nástroj naozaj spustil. Parameter `sessionID` priradí  
+oznámenie k relácii; ak tá nie je otvorená, oznámenie ponúkne jej  
+otvorenie. Parameter `duration` určuje, ako dlho oznámenie zostane na  
+obrazovke.  
+
+Spustenie:  
+
+```bash
+cd hooks-priklady/09-opencode2
+opencode
+```
+
+Priečinok `.opencode/plugins/tool-notify/` sa načíta automaticky pri  
+štarte. Ak chcete oznámenie vo všetkých projektoch, skopírujte priečinok  
+do `~/.config/opencode/plugins/`. Plugin na inom mieste uveďte v poli  
+`plugins` v `opencode.json(c)`, napríklad `["./plugins/tool-notify"]`.  
+Zmeny v plugine OpenCode sleduje a načíta ich bez reštartu.  
+
+> **Tip:** namiesto oznámenia v termináli môžete zavolať systémovú  
+> notifikáciu: `context.attention.notify({ title: "Nástroj", message:  
+> text, notification: { when: "blurred" } })`. S `when: "blurred"` sa  
+> notifikácia ukáže len vtedy, keď je terminál v pozadí.  
+
+> **Pozor:** rozhranie pluginov sa medzi verziami OpenCode mení. Ukážka  
+> je overená na OpenCode 2.2.4 s balíkom `@opencode/plugin` 2.2.4; pri  
+> inej verzii si najprv overte názvy hookov v dokumentácii.  
+
+### Vyskúšajte
+
+- Spustite príklad a požiadajte OpenCode o prečítanie ľubovoľného  
+  súboru; v rohu sa má objaviť oznámenie s menom nástroja a časom.  
+- Otvorte `~/.local/share/opencode/tool-notify.log` a porovnajte čas  
+  v ňom s časom v oznámení.  
+- Zmeňte `variant` na `"success"` a `duration` na `1000` a všimnite si  
+  rozdiel.  
+- Doplňte hook `execute.after`, ktorý do toho istého súboru zapíše  
+  koniec nástroja, a vypočítajte trvanie.  
 
 ## 6. Hooks v GitHub Copilot vo VS Code
 
@@ -1269,6 +1438,7 @@ meniť a mazať všetko, k čomu máte prístup vy. Preto:
 - Anthropic – Inference hooks:  
   platform.claude.com/docs/en/manage-claude/inference-hooks  
 - OpenCode – Plugins: opencode.ai/docs/plugins  
+- OpenCode 2 – Pluginy a hooky: opencode.ai/v2/docs/build/plugins  
 - VS Code – Configure agent hooks:  
   code.visualstudio.com/docs/agent-customization/hooks  
 - GitHub – Copilot hooks reference:  
