@@ -149,6 +149,36 @@ Blokové HTML komentáre `<!-- ... -->` Claude Code pred vložením do kontextu
 odstráni. Môžete do nich písať poznámky pre ľudí bez toho, aby zaberali  
 miesto v kontexte.  
 
+**Koreň alebo `.claude/`?** Pre Claude Code sú obe umiestnenia  
+rovnocenné: načítajú sa pri štarte a majú rovnakú váhu. Líšia sa tým, kto  
+súbor ľahko nájde.  
+
+| Kritérium | `./CLAUDE.md` | `./.claude/CLAUDE.md` |  
+| --- | --- | --- |  
+| viditeľnosť | hneď v koreni | v skrytom priečinku |  
+| koreň projektu | pribudne súbor | ostane čistý |  
+| konfigurácia | oddelene | pri `settings.json`, `rules/` |  
+| iné nástroje | VS Code, opencode ho nájdu | nespomínajú ho |  
+
+Koreňový `./CLAUDE.md` zvoľte, keď:  
+
+- súbor má rýchlo nájsť aj človek, napríklad nový kolega,  
+- s projektom pracuje aj Copilot Chat alebo opencode,  
+- projekt je malý a koreň nie je preplnený.  
+
+Súbor `./.claude/CLAUDE.md` zvoľte, keď:  
+
+- chcete mať pokyny, nastavenia, pravidlá a subagentov na jednom mieste,  
+- koreň projektu je plný konfiguračných súborov,  
+- projekt používa len Claude Code.  
+
+V oboch prípadoch má hlavný súbor ostať krátky: prehľad, príkazy,  
+štruktúra a niekoľko zásad. Témy a pokyny pre časť projektu presuňte do  
+`.claude/rules/` (pozri 3.6).  
+
+> **Tip:** vyberte si jedno miesto. Dva projektové súbory vedľa seba sa  
+> ľahko rozídu a začnú si odporovať.  
+
 ### 3.5 AGENTS.md
 
 `AGENTS.md` je otvorený štandard pokynov pre viacero AI nástrojov, opísaný  
