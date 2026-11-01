@@ -88,9 +88,9 @@ v nastaveniach, v definícii nástroja a v odpovediach štyroch verejných
 služieb. Na záver postavíte malého agenta v Pythone, ktorý tieto služby  
 volá ako nástroje.  
 
-Základy práce so súbormi JSON v Pythone opisuje kapitola  
-`python-zaklady.md` (časť 5.2). Správy protokolu MCP vo formáte JSON-RPC  
-sú v kapitole `mcp.md`. Tu na ne nadväzujeme a neopakujeme ich.  
+Všetky súbory, ktoré v kapitole potrebujete, sú tu uvedené celé. Nad  
+každým blokom kódu je cesta k súboru. Súbory si vytvorte podľa nej  
+a príklady spúšťajte z uvedeného priečinka.  
 
 ## 2. Ako JSON vyzerá
 
@@ -222,10 +222,41 @@ v definícii nástroja (časť 4.3) a pri štruktúrovanom výstupe (časť 4.8)
 Budete potrebovať:  
 
 - **Python** 3.10 alebo novší,  
-- **uv** na spúšťanie skriptov s knižnicami (kapitola `python-zaklady.md`),  
+- **uv** na spúšťanie skriptov, ktoré potrebujú knižnice,  
 - **VS Code** na úpravu súborov,  
-- pre príklady s Claude kľúč API v premennej prostredia  
-  `ANTHROPIC_API_KEY` (kapitola `api-keys.md`).  
+- pre príklady s Claude **kľúč API** od Anthropic,  
+- pre časť 4.2 nainštalovaný **Claude Code**.  
+
+**uv** je nástroj, ktorý pred spustením skriptu sám stiahne potrebné  
+knižnice. Ktoré to sú, zistí z hlavičky `# /// script` na začiatku  
+skriptu. Nemusíte preto zakladať virtuálne prostredie ani spúšťať  
+`pip install`.  
+
+Inštalácia uv na Windows:  
+
+```powershell
+winget install --id=astral-sh.uv -e
+```
+
+Inštalácia uv na Linuxe a macOS:  
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**Kľúč API** si vytvoríte v Claude Console po prihlásení. Skripty ho  
+čítajú z premennej prostredia `ANTHROPIC_API_KEY`, nikdy ho nepíšte  
+do kódu. Pre aktuálny terminál ho nastavíte takto:  
+
+```bash
+export ANTHROPIC_API_KEY="sem-vložte-kľúč"
+```
+
+V PowerShelli na Windows:  
+
+```powershell
+$env:ANTHROPIC_API_KEY = "sem-vložte-kľúč"
+```
 
 Overenie inštalácie:  
 
@@ -236,6 +267,19 @@ python3 -m json.tool --help
 ```
 
 Na Windows píšte namiesto `python3` príkaz `python` alebo `py`.  
+
+### Súbory k tejto kapitole
+
+```text
+json-priklady/
+├── 01-syntax/            objednávka, chybné súbory, kontrola
+├── 02-vscode/.vscode/    nastavenia VS Code
+├── 03-claude-code/.claude/  nastavenia Claude Code
+├── 04-nastroj/           definícia nástroja a ukážka volania
+├── 05-api/               počasie, kurzy ECB, Coinbase, GitHub
+├── 06-strukturovany/     schéma a vyťaženie údajov z faktúry
+└── projekt/              agent s tromi nástrojmi
+```
 
 ### Kontrola a formátovanie z príkazového riadka
 
@@ -277,8 +321,36 @@ for nazov in sys.argv[1:]:
         print(f"       {' ' * (chyba.colno - 1)}^")
 ```
 
-V priečinku sú tri súbory s typickými chybami: čiarka za poslednou  
-položkou, jednoduché úvodzovky a komentár.  
+Na vyskúšanie si vytvorte tri súbory s typickými chybami: čiarka  
+za poslednou položkou, jednoduché úvodzovky a komentár.  
+
+Súbor `json-priklady/01-syntax/chyba-ciarka.json`:  
+
+```json
+{
+  "mesto": "Košice",
+  "pocet": 3,
+}
+```
+
+Súbor `json-priklady/01-syntax/chyba-uvodzovky.json`:  
+
+```json
+{
+  'mesto': 'Košice'
+}
+```
+
+Súbor `json-priklady/01-syntax/chyba-komentar.json`:  
+
+```jsonc
+{
+  // poznámka
+  "mesto": "Košice"
+}
+```
+
+Teraz spustite kontrolu všetkých súborov v priečinku:  
 
 ```bash
 python3 kontrola.py *.json
@@ -351,7 +423,7 @@ Súbor `json-priklady/02-vscode/.vscode/settings.json`:
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
 
-  // Kapitoly kurzu potrebujú dve medzery na konci riadku
+  // Markdown zalomí riadok, ak sa končí dvoma medzerami
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.wordWrap": "wordWrapColumn",
@@ -368,7 +440,7 @@ Súbor `json-priklady/02-vscode/.vscode/settings.json`:
 - Kľúče majú tvar `oblasť.nastavenie`, napríklad `editor.rulers`.  
 - Kľúč v hranatých zátvorkách, napríklad `"[markdown]"`, platí len pre  
   jeden jazyk. Tu vypne mazanie medzier na konci riadkov v Markdowne,  
-  pretože kapitoly kurzu ich potrebujú na zalomenie riadku.  
+  pretože dve medzery na konci riadku v ňom znamenajú zalomenie.  
 - Súbor obsahuje komentáre. VS Code číta svoje nastavenia v režime  
   **JSONC** (JSON with Comments), preto sú komentáre povolené.  
   Čiarku za poslednou položkou editor prijme, ale zobrazí varovanie.  
@@ -383,9 +455,9 @@ hodnoty. Schému priradíte kľúčom `$schema` priamo v súbore alebo
 nastavením `json.schemas` v `settings.json`. Rovnaký princíp využíva  
 Claude Code v ďalšej časti.  
 
-Servery MCP pre GitHub Copilot sa vo VS Code nastavujú v podobnom  
-súbore `.vscode/mcp.json`. Hlavný kľúč je tam `servers`. Postup opisuje  
-kapitola `mcp.md`.  
+V podobnom súbore `.vscode/mcp.json` sa vo VS Code nastavujú servery  
+MCP (Model Context Protocol), ktoré pridávajú nástroje pre GitHub  
+Copilot. Hlavný kľúč je tam `servers`.  
 
 ### Vyskúšajte
 
@@ -442,8 +514,9 @@ Súbor `json-priklady/03-claude-code/.claude/settings.json`:
 
 Pravidlo `Bash(curl *)` znamená „príkaz Bash, ktorý začína `curl`“.  
 Pravidlo `Read(./.env)` sa týka nástroja na čítanie súborov. Zoznamy  
-z viacerých súborov sa spájajú, nič sa neprepíše. Podrobnosti o hooks  
-v tom istom súbore sú v kapitole `hooks.md`.  
+z viacerých súborov sa spájajú, nič sa neprepíše. V tom istom súbore  
+sa nastavujú aj **hooks**: skripty, ktoré Claude Code spustí automaticky,  
+napríklad pred každým príkazom.  
 
 ### Ako nastavenia otestovať
 
@@ -984,8 +1057,7 @@ python3 github_repo.py astral-sh/uv
 
 Posielanie dát funguje opačne: slovník prevediete na JSON cez  
 `json.dumps`, pošlete ho metódou POST a nastavíte hlavičku  
-`Content-Type: application/json`. Príklad je v kapitole  
-`python-zaklady.md` (časť 5.3).  
+`Content-Type: application/json`. Server odpovie opäť v JSON.  
 
 ### Vyskúšajte
 
@@ -1142,8 +1214,8 @@ povolí len vymenované hodnoty, takže mena nikdy nebude „eurá“ ani „€
 > zlé číslo, ktoré má správny typ. Preto skript na konci overí, či súčet  
 > položiek sedí so sumou na úhradu.  
 
-Skript `claude_structured.py` v koreňovom priečinku kurzu ukazuje tú istú  
-úlohu s knižnicou Pydantic. Tá schému vytvorí z triedy v Pythone.  
+Schému nemusíte písať ručne. Knižnica Pydantic ju vie vytvoriť  
+z triedy v Pythone a SDK Anthropic s ňou vie priamo pracovať.  
 
 ### Vyskúšajte
 
@@ -1441,7 +1513,7 @@ Súbor `behy.jsonl` po dvoch spusteniach (skrátené):
 ```
 
 Každý riadok je samostatný JSON. Súbor sa dá čítať riadok po riadku,  
-filtrovať, alebo neskôr nahrať do databázy (kapitola `postgresql.md`).  
+filtrovať, alebo neskôr nahrať do databázy.  
 
 > **Tip:** požiadajte Claude Code: „Pridaj do `nastroje.json` nástroj  
 > na kurz zlata a doplň funkciu do `agent.py`.“ Potom skontrolujte, či  
@@ -1475,7 +1547,8 @@ Pravidlá pre nich môžete zapísať do `CLAUDE.md` alebo `AGENTS.md`:
 - Kľúče API nikdy nezapisuj do JSON súborov, používaj premenné prostredia.
 ```
 
-Kontrolu po úprave môže spúšťať aj hook automaticky (kapitola `hooks.md`).  
+Kontrolu po úprave môže spúšťať aj hook automaticky po každej zmene  
+súboru.  
 
 ### JSON vo vnútri Claude Code
 
@@ -1581,21 +1654,3 @@ režime vie vrátiť výsledok ako JSON, ktorý spracuje ďalší program.
 | structured output | štruktúrovaný výstup | odpoveď modelu podľa schémy |  
 | prompt injection | podvrhnutý pokyn | pokyn ukrytý v dátach pre model |  
 | token (GitHub) | prístupový token | tajný kľúč na prihlásenie k API |  
-
-## Zdroje
-
-- Formát JSON: https://www.json.org/  
-- Norma RFC 8259: https://www.rfc-editor.org/rfc/rfc8259  
-- JSON Schema: https://json-schema.org/learn  
-- JSON Lines: https://jsonlines.org/  
-- Python, modul `json`: https://docs.python.org/3/library/json.html  
-- VS Code, nastavenia: https://code.visualstudio.com/docs/configure/settings  
-- VS Code, JSON a JSONC: https://code.visualstudio.com/docs/languages/json  
-- Claude Code, nastavenia: https://code.claude.com/docs/en/settings  
-- Claude Code, povolenia: https://code.claude.com/docs/en/permissions  
-- Claude API, nástroje: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview  
-- Claude API, štruktúrovaný výstup: https://platform.claude.com/docs/en/build-with-claude/structured-outputs  
-- Open-Meteo: https://open-meteo.com/en/docs  
-- ECB Data Portal API: https://data.ecb.europa.eu/help/api/overview  
-- Coinbase, ceny: https://docs.cdp.coinbase.com/coinbase-app/track-apis/prices  
-- GitHub REST API: https://docs.github.com/en/rest  
