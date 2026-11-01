@@ -1,0 +1,234 @@
+<mxfile host="app.diagrams.net" agent="Gemini">
+  <diagram id="endoskop_v7_final_routing" name="Oprava Endoskopu - Final Routing">
+    <mxGraphModel dx="1455" dy="912" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="h1" parent="1" style="shape=rectangle;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;align=center;verticalAlign=middle;" value="Riaditeľ" vertex="1">
+          <mxGeometry height="40" width="160" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="h2" parent="1" style="shape=rectangle;fontStyle=1;align=center;verticalAlign=middle;" value="Manažér ZS" vertex="1">
+          <mxGeometry height="40" width="160" x="180" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="h3" parent="1" style="shape=rectangle;fontStyle=1;align=center;verticalAlign=middle;" value="Poisťovňa" vertex="1">
+          <mxGeometry height="40" width="140" x="340" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="h4" parent="1" style="shape=rectangle;fontStyle=1;align=center;verticalAlign=middle;" value="Dodávateľ" vertex="1">
+          <mxGeometry height="40" width="160" x="480" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="h5" parent="1" style="shape=rectangle;fontStyle=1;align=center;verticalAlign=middle;" value="Lekár / Sestra" vertex="1">
+          <mxGeometry height="40" width="140" x="640" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="h7" parent="1" style="shape=rectangle;fontStyle=1;align=center;verticalAlign=middle;" value="Trvanie" vertex="1">
+          <mxGeometry height="40" width="80" x="780" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="v1" parent="1" style="line;strokeWidth=1;direction=south;" value="" vertex="1">
+          <mxGeometry height="1100" width="10" x="175" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="v2" parent="1" style="line;strokeWidth=1;direction=south;" value="" vertex="1">
+          <mxGeometry height="1100" width="10" x="335" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="v3" parent="1" style="line;strokeWidth=1;direction=south;" value="" vertex="1">
+          <mxGeometry height="1100" width="10" x="475" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="v4" parent="1" style="line;strokeWidth=1;direction=south;" value="" vertex="1">
+          <mxGeometry height="1100" width="10" x="635" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="v5" parent="1" style="line;strokeWidth=1;direction=south;" value="" vertex="1">
+          <mxGeometry height="1100" width="10" x="775" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="1" vertex="1">
+          <mxGeometry height="25" width="25" x="650" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Identifikácia poruchy prístroja" vertex="1">
+          <mxGeometry height="50" width="100" x="675" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontSize=10;" value="ihneď" vertex="1">
+          <mxGeometry height="30" width="70" x="785" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="2" vertex="1">
+          <mxGeometry height="25" width="25" x="190" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-13" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="c3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="275" y="205" />
+            </Array>
+            <mxPoint x="275" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Koordinácia procesu opravy" vertex="1">
+          <mxGeometry height="50" width="120" x="215" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="3" vertex="1">
+          <mxGeometry height="25" width="25" x="490" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Diagnostika a cenová ponuka (CP)" vertex="1">
+          <mxGeometry height="50" width="120" x="515" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontSize=10;" value="2 dni" vertex="1">
+          <mxGeometry height="30" width="70" x="785" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="4" vertex="1">
+          <mxGeometry height="25" width="25" x="490" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" value="Existuje servisná zmluva?" vertex="1">
+          <mxGeometry height="80" width="110" x="515" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="c41" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="4.1" vertex="1">
+          <mxGeometry height="25" width="25" x="490" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="s41" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Poskytnutie náhradného prístroja" vertex="1">
+          <mxGeometry height="50" width="120" x="515" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="5" vertex="1">
+          <mxGeometry height="25" width="25" x="190" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Zistenie a spracovanie ceny opravy" vertex="1">
+          <mxGeometry height="50" width="120" x="215" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="6" vertex="1">
+          <mxGeometry height="25" width="25" x="350" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="s6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Nahlásenie poistnej udalosti" vertex="1">
+          <mxGeometry height="60" width="100" x="375" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="7" vertex="1">
+          <mxGeometry height="25" width="25" x="350" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="s7" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" value="Vyjadrenie poisťovne (uznanie žiadosti?)" vertex="1">
+          <mxGeometry height="80" width="110" x="370" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="c71" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="7.1" vertex="1">
+          <mxGeometry height="25" width="25" x="190" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="s71" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Informácia o poistnom plnení" vertex="1">
+          <mxGeometry height="50" width="120" x="215" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="c72" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="7.2" vertex="1">
+          <mxGeometry height="25" width="25" x="190" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="s72" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Príprava podkladov pre riaditeľa" vertex="1">
+          <mxGeometry height="50" width="120" x="215" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="c8" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="8" vertex="1">
+          <mxGeometry height="25" width="25" x="50" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="s8" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Rozhodnutie o realizácii opravy" vertex="1">
+          <mxGeometry height="80" width="110" x="40" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontSize=10;" value="1 deň" vertex="1">
+          <mxGeometry height="30" width="70" x="785" y="775" as="geometry" />
+        </mxCell>
+        <mxCell id="c81" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="8.1" vertex="1">
+          <mxGeometry height="25" width="25" x="190" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="s81" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Obstaranie nového prístroja" vertex="1">
+          <mxGeometry height="50" width="120" x="215" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="c82" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="8.2" vertex="1">
+          <mxGeometry height="25" width="25" x="490" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-6" edge="1" parent="1" source="s82" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="K6bWUkVBtZys6lHe0eIz-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s82" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Dodanie nového prístroja" vertex="1">
+          <mxGeometry height="50" width="120" x="515" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="c9" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="9" vertex="1">
+          <mxGeometry height="25" width="25" x="490" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="s9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Realizácia opravy prístroja" vertex="1">
+          <mxGeometry height="50" width="120" x="515" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontSize=10;" value="1 mesiac" vertex="1">
+          <mxGeometry height="30" width="70" x="790" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="c10" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="10" vertex="1">
+          <mxGeometry height="25" width="25" x="650" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-8" edge="1" parent="1" source="s10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="K6bWUkVBtZys6lHe0eIz-7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-11" edge="1" parent="1" source="s10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="s9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Kontrola funkčnosti prístroja" vertex="1">
+          <mxGeometry height="50" width="100" x="675" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="s4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="s41" value="ÁNO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="s5" value="NIE">
+          <mxGeometry relative="1" x="-0.8" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="s41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="s5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="s5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" target="s6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="s6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="s7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="s7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="s71">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="s71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="s72">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="s72" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="s8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="s8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" target="s9" value="ÁNO">
+          <mxGeometry relative="1" x="-0.95" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="s8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" target="s81" value="NIE">
+          <mxGeometry relative="1" x="-0.8" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="s81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="s82">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="s9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="s10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontSize=10;" value="1 deň" vertex="1">
+          <mxGeometry height="30" width="70" x="785" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontSize=10;" value="5 dní" vertex="1">
+          <mxGeometry height="30" width="70" x="790" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Nasadenie nového prístroja" vertex="1">
+          <mxGeometry height="50" width="100" x="670" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Nasadenie opraveného prístroja" vertex="1">
+          <mxGeometry height="50" width="100" x="675" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontSize=10;" value="1 deň" vertex="1">
+          <mxGeometry height="30" width="70" x="790" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-10" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="8.3" vertex="1">
+          <mxGeometry height="25" width="25" x="645" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-12" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=10;" value="11" vertex="1">
+          <mxGeometry height="25" width="25" x="650" y="1045" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-16" parent="1" style="line;strokeWidth=1;direction=south;" value="" vertex="1">
+          <mxGeometry height="1100" width="10" x="15" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-17" parent="1" style="line;strokeWidth=1;direction=south;" value="" vertex="1">
+          <mxGeometry height="1100" width="10" x="855" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="K6bWUkVBtZys6lHe0eIz-19" parent="1" style="line;strokeWidth=1;direction=west;" value="" vertex="1">
+          <mxGeometry height="10" width="840" x="20" y="1176" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
