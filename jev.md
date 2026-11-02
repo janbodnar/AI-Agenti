@@ -99,6 +99,31 @@ kamene, z ktorých skladáte väčšie riešenia.
 - **Box** nájde objekt na obrázku a vráti jeho ohraničujúci obdĺžnik.  
   Je zatiaľ v skúšobnom režime, pozri časť 4.  
 
+### Ako písať dobré otázky
+
+Kvalita odpovede závisí od kvality otázky. Dodržiavajte tieto pravidlá:  
+
+- Pýtajte sa na jedno rozhodnutie. Zloženú otázku rozdeľte na dve.  
+- Inštrukcie píšte po anglicky, konkrétne a bez príkladov.  
+- Na stavovú položku sa odvolajte v spätných apostrofoch, napríklad  
+  `text`.  
+- Možnosti v `criteria` majú byť krátke, vzájomne sa vylučujúce  
+  a mali by pokryť celý priestor.  
+- Pri Choice a Score pridajte možnosť `unknown`, aby model mohol  
+  povedať, že to nevie.  
+- Pri Noul opíšte v `criteria`, čo znamená `true` a čo `false`.  
+- Vyhnite sa návodom typu „zvyčajne áno“, ovplyvňujú výsledok.  
+
+| Zlá otázka | Dobrá otázka |  
+|---|---|  
+| „Je to urgentné a týka sa to platieb?“ | dve samostatné otázky |  
+| „Ktorý tím?“ bez opisu možností | Choice s opismi a `unknown` |  
+| „Ohodnoťte kvalitu 1–10.“ | Score s pomenovanými úrovňami |  
+| „Odpovedzte áno, ak si myslíte...“ | neutrálne „Does...?“ |  
+
+> **Tip:** Dobrú otázku dokáže zodpovedať aj človek za pár sekúnd  
+> a bez ďalšieho kontextu.  
+
 ### Istota (confidence)
 
 Odpovede typu Choice, Score a Box obsahujú **confidence**, číslo od 0  
@@ -406,7 +431,7 @@ Zákazník pošle fotku telefónu. Jev odhadne rozsah poškodenia na stupnici
 od 0 po 3. Ide o príklad s obrázkom, preto platí rovnaké upozornenie ako  
 pri Box.  
 
-Fotka *Rozbitý telefón na dlažbe*
+![Rozbitý telefón na dlažbe](obrazky/jev-playground-telefon.jpg)  
 
 1. Nahrajte fotku cez **Click to upload assets**.  
 2. V editore State napíšte `/` a vyberte fotku. Kľúč nech je `foto`.  
@@ -439,7 +464,7 @@ Hodnoty medzi tým ukazujú, že model váha medzi dvoma úrovňami.
 Jedna fotka môže slúžiť viacerým otázkam naraz. Obe otázky sa vyhodnotia  
 nad tým istým obrázkom.  
 
-Fotka: *Regál s nápojmi a konzervami*
+![Regál s nápojmi a konzervami](obrazky/jev-playground-polica.jpg)  
 
 1. Nahrajte fotku regála a v State ju odkážte cez `/` pod kľúčom `polica`.  
 2. Vložte otázky:  
@@ -1858,9 +1883,23 @@ skript, ktorý roztriedi e-maily zo súboru CSV do troch kategórií.“
 | playground | playground | skúšobná stránka v prehliadači |  
 | skill | skill | návod a nástroje pre AI agenta |  
 | guardrail | strážca | kontrola vstupu alebo výstupu |  
+| fallback | záložná vetva | náhradné riešenie, keď hlavné zlyhá |  
+| calibration | kalibrácia | zhoda istoty s reálnou presnosťou |  
+| golden set | zlatý fond | označená vzorka na meranie presnosti |  
 | thread | vlákno | paralelne bežiaca časť programu |  
 | board signature | podpis plochy | identifikátor konkrétnej plochy v hre |  
 | retry policy | politika opakovania | pravidlá opakovania pri chybe |  
+
+## 13. Inšpirácia a ukážky
+
+Tieto komunitné stránky ukazujú, čo iní stavajú s Jev. Nie sú oficiálnou  
+dokumentáciou TypeSafe, preto si pred prevzatím overte detaily.  
+
+- [Jev Showcase](https://jevbest.com/showcase/) – viac ako 2 000  
+  verejných ukážok rozdelených podľa použitia: smerovanie, triedenie,  
+  hry, robotika a ďalšie.  
+- [Awesome Jev](https://awesomejev.com/) – prehľad repozitárov, SDK,  
+  integrácií, článkov a benchmarkov postavených na Jev.  
 
 ## Zdroje
 
