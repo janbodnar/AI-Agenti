@@ -406,7 +406,7 @@ Zákazník pošle fotku telefónu. Jev odhadne rozsah poškodenia na stupnici
 od 0 po 3. Ide o príklad s obrázkom, preto platí rovnaké upozornenie ako  
 pri Box.  
 
-![Rozbitý telefón na dlažbe](obrazky/jev-playground-telefon.jpg)  
+Fotka *Rozbitý telefón na dlažbe*
 
 1. Nahrajte fotku cez **Click to upload assets**.  
 2. V editore State napíšte `/` a vyberte fotku. Kľúč nech je `foto`.  
@@ -439,7 +439,7 @@ Hodnoty medzi tým ukazujú, že model váha medzi dvoma úrovňami.
 Jedna fotka môže slúžiť viacerým otázkam naraz. Obe otázky sa vyhodnotia  
 nad tým istým obrázkom.  
 
-![Regál s nápojmi a konzervami](obrazky/jev-playground-polica.jpg)  
+Fotka: *Regál s nápojmi a konzervami*
 
 1. Nahrajte fotku regála a v State ju odkážte cez `/` pod kľúčom `polica`.  
 2. Vložte otázky:  
