@@ -178,14 +178,15 @@ jev-priklady/
 ├── 03-score/hodnotenie.py
 ├── 04-viac-otazok/triedenie.py
 ├── 05-rest/rest.py
-└── 06-snake/
-    ├── snake_game3.py
-    ├── head32.png
-    ├── dot32.png
-    └── apple32.png
+├── 06-snake/
+│   ├── snake_game3.py
+│   ├── head32.png
+│   ├── dot32.png
+│   └── apple32.png
+└── 07-jev-table/
+    ├── vzorka.csv
+    └── pack.yaml
 ```
-
-Súbor `jev-priklady/pyproject.toml`:  
 
 ```toml
 [project]
@@ -326,8 +327,19 @@ Questions:
 
 ### Príklad D: viac otázok naraz
 
-Do jednej požiadavky môžete dať ľubovoľnú zmes otázok. State ponechajte  
-z príkladu B a otázky nahraďte týmito:  
+Do jednej požiadavky môžete dať ľubovoľnú zmes otázok. State môžete  
+ponechať z príkladu B, alebo vložiť vlastný. Otázky nahraďte týmito:  
+
+State:  
+
+```json
+{
+  "predmet": "Dvojitá platba",
+  "text": "Za septembrovú faktúru mi strhli peniaze dvakrát."
+}
+```
+
+Questions:  
 
 ```json
 {
@@ -487,9 +499,95 @@ Otázka sa potom pýta na konkrétnu položku.
 Pri overení s modelom `jev-1.14.0` vrátil `druha` s istotou 100 %.  
 Ak chcete, aby model vracal čitateľnejšie názvy, upravte kľúče v `criteria`.  
 
-### Vyskúšajte
+### Príklad I: je e-mail podvod? (Noul a Score)
 
-- V príklade A zmeňte správu na „Ďakujem, už to funguje.“ a sledujte,  
+Jev môže posúdiť aj podozrivú správu. State ponechajte z príkladu B,  
+alebo vložte vlastný e-mail. Obe otázky sa vyhodnotia nad tým istým  
+textom.  
+
+State:  
+
+```json
+{
+  "predmet": "URGENT: overte si účet",
+  "text": "Váš účet bude zablokovaný do 24 hodín. Kliknite na odkaz a zadajte prihlasovacie údaje."
+}
+```
+
+Questions:  
+
+```json
+{
+  "podvod": {
+    "type": "noul",
+    "instructions": "Is this email a phishing or scam attempt?"
+  },
+  "riziko": {
+    "type": "score",
+    "instructions": "How risky is this email for the recipient?",
+    "criteria": ["Harmless", "Suspicious", "Likely scam", "Clear phishing"]
+  }
+}
+```
+
+### Príklad J: v akom jazyku je správa? (Choice)
+
+Model môže rozpoznať jazyk správy. Úrovne zadáte ako možnosti.  
+
+State:  
+
+```json
+{
+  "text": "Dobrý deň, potrebujem pomoc s objednávkou."
+}
+```
+
+Questions:  
+
+```json
+{
+  "jazyk": {
+    "type": "choice",
+    "instructions": "What language is this message written in?",
+    "criteria": {
+      "sk": "Slovak",
+      "en": "English",
+      "de": "German",
+      "ina": "Any other language"
+    }
+  }
+}
+```
+
+### Príklad K: je text vulgárny? (Noul s opisom)
+
+Pri Noul môžete v `criteria` opísať, čo znamená „áno“ a „nie“.  
+Model potom presnejšie vie, čo hľadáte.  
+
+State:  
+
+```json
+{
+  "komentar": "Tento produkt je úplne zbytočný a predajca je hlupák."
+}
+```
+
+Questions:  
+
+```json
+{
+  "vulgarny": {
+    "type": "noul",
+    "instructions": "Is the comment abusive or vulgar?",
+    "criteria": {
+      "true": "Insulting, vulgar or threatening wording",
+      "false": "Neutral or constructive wording"
+    }
+  }
+}
+```
+
+### Vyskúšajte  
   ako hodnota `noul` klesne.  
 - V príklade B pridajte možnosť `ina` s opisom „Anything else“ a pošlite  
   e-mail, ktorý nepatrí nikomu. Ako sa zmení istota?  
@@ -501,6 +599,10 @@ Ak chcete, aby model vracal čitateľnejšie názvy, upravte kľúče v `criteri
   rozdelenie pravdepodobností?  
 - V príklade H zmeňte poradie recenzií. Mení sa odpoveď, alebo len názov  
   položky?  
+- V príklade I zmeňte správu na bežnú faktúru. Ako sa zmení skóre  
+  rizika?  
+- V príklade J pošlite správu v angličtine a sledujte istotu výberu.  
+- V príklade K upravte opis v `criteria` a porovnajte výsledok.  
 
 ## 5. Jev v Pythone
 
@@ -518,8 +620,6 @@ Vaše čísla sa môžu mierne líšiť.
 
 Program posúdi tri správy a podľa prahov 0,7 a 0,3 rozhodne „áno“, „nie“  
 alebo „neisté“.  
-
-Súbor `jev-priklady/01-noul/naliehavost.py`:  
 
 ```python
 """Noul: je správa naliehavá? Jev vráti pravdepodobnosť odpovede áno."""
@@ -578,8 +678,6 @@ pošle stav a otázky, odpovede typu Noul sú v slovníku `odpoved.nouls`.
 ### Príklad 2: Choice
 
 Program zaradí štyri požiadavky zákazníkov do tímov.  
-
-Súbor `jev-priklady/02-choice/tikety.py`:  
 
 ```python
 """Choice: ktorý tím má vybaviť požiadavku zákazníka?"""
@@ -642,8 +740,6 @@ v `timy` sú zároveň hodnoty, ktoré model môže vrátiť v `vyber.choice`.
 
 Program ohodnotí nespokojnosť zákazníka na stupnici 0 až 3.  
 
-Súbor `jev-priklady/03-score/hodnotenie.py`:  
-
 ```python
 """Score: ako veľmi je zákazník nespokojný? Úrovne idú od 0 vyššie."""
 
@@ -703,8 +799,6 @@ Funkcia `round()` ho zaokrúhli na najbližšiu úroveň.
 
 Jedna požiadavka obsahuje štyri otázky rôznych typov. O ďalšom kroku  
 potom rozhoduje obyčajný kód, nie model.  
-
-Súbor `jev-priklady/04-viac-otazok/triedenie.py`:  
 
 ```python
 """Viac otázok v jednej požiadavke a rozhodnutie podľa istoty."""
@@ -794,8 +888,6 @@ SDK je len pohodlná vrstva nad **HTTP API**, teda rozhraním, ktoré
 prijíma požiadavky cez web. Rovnakú otázku pošlete aj knižnicou  
 `requests` metódou `POST` na adresu `https://api.typesafe.ai/v1/systemone`.  
 
-Súbor `jev-priklady/05-rest/rest.py`:  
-
 ```python
 """Volanie Jev cez HTTP API bez SDK, len s knižnicou requests."""
 
@@ -866,6 +958,205 @@ kód, napríklad 401 pri zlom kľúči.
 - Zmeňte kľúč na nesprávny a pozrite si chybu 401.  
 - Pridajte do `questions` otázku typu `choice` priamo ako slovník.  
 
+### Príklad 6: obrázok a typ Box v Pythone
+
+Obrázky sú v skúšobnom režime, preto volanie vyžaduje hlavičku  
+`TypeSafe-Danger-Zone-Images: true`. Presný spôsob odovzdania obrázka  
+(base64 alebo URL) si overte v aktuálnej dokumentácii; príklad nižšie  
+je ilustratívny.  
+
+```python
+"""Volanie Jev s obrázkom a typom Box (skúšobný režim)."""
+
+import base64
+import json
+import os
+import sys
+
+import requests
+
+kluc = os.getenv("JEV_API_KEY")
+if not kluc:
+    sys.exit("Premenná JEV_API_KEY nie je nastavená.")
+
+with open("foto.jpg", "rb") as subor:
+    obrazok = base64.b64encode(subor.read()).decode("ascii")
+
+poziadavka = {
+    "model": "jev-latest",
+    "state": {"foto": f"data:image/jpeg;base64,{obrazok}"},
+    "questions": {
+        "je_tam": {
+            "type": "noul",
+            "instructions": "Is there an apple in `foto`?",
+        },
+        "jablko": {
+            "type": "box",
+            "instructions": "the apple in `foto`",
+        },
+    },
+}
+
+odpoved = requests.post(
+    "https://api.typesafe.ai/v1/systemone",
+    headers={
+        "Authorization": f"Bearer {kluc}",
+        "TypeSafe-Danger-Zone-Images": "true",
+    },
+    json=poziadavka,
+    timeout=30,
+)
+odpoved.raise_for_status()
+
+data = odpoved.json()
+box = data["answers"]["jablko"]["box"]
+print(json.dumps(box, indent=2))
+# box obsahuje top, bottom, left, right ako zlomky šírky a výšky
+```
+
+Výstup (ilustratívny):  
+
+```text
+{
+  "top": 0.12,
+  "bottom": 0.48,
+  "left": 0.44,
+  "right": 0.71
+}
+```
+
+> **Pozor:** Box vráti obdĺžnik vždy, aj keď objekt na obrázku nie je.  
+> Preto sa vedľa neho pýtajte Noul otázkou, či tam objekt vôbec je.  
+
+### Vyskúšajte
+
+- Nahrajte fotku bez jablka a sledujte, ako sa zmení hodnota Noul.  
+- Zmeňte inštrukciu na iný objekt, napríklad „the cup“.  
+
+### Odhad nákladov (Python)
+
+Cena je 0,042 USD za milión vstupných tokenov. Po prvých testoch  
+môžete odhadnúť celkovú cenu z priemeru tokenov na požiadavku.  
+
+```python
+"""Odhad nákladov pre hromadné spracovanie záznamov."""
+
+pocet_zaznamov = 10_000
+priemer_tokenov = 420  # zmerané na vzorke
+cena_za_milion = 0.042
+
+vstupne_tokeny = pocet_zaznamov * priemer_tokenov
+odhad_usd = vstupne_tokeny / 1_000_000 * cena_za_milion
+print(f"Odhadovaná cena: {odhad_usd:.2f} USD")
+```
+
+Výstup:  
+
+```text
+Odhadovaná cena: 0.18 USD
+```
+
+> **Tip:** Do odhadu pridajte 10–20 % rezervu na opakovania pri chybách  
+> a dlhšie inštrukcie.  
+
+### Hromadné označenie CSV: jev-table
+
+Na triedenie celých tabuliek slúži komunitný nástroj  
+[jev-table](https://github.com/dtduc-git/jev-table). Prečíta CSV,  
+pošle každý riadok ako stav a do nového CSV zapíše odpovede, istotu  
+a frontu na kontrolu. Nástroj je nezávislý od TypeSafe.  
+
+Spustite ho cez `uvx`, projekt netreba vytvárať. Vyžaduje premennú  
+`TYPESAFE_API_KEY`:  
+
+```bash
+export TYPESAFE_API_KEY="váš-kľúč"
+uvx jev-table vzorka.csv --spec pack.yaml --dry-run
+uvx jev-table vzorka.csv --spec pack.yaml
+```
+
+Prvý príkaz nič neposiela, len odhadne tokeny a cenu. Druhý vytvorí  
+`vzorka.jev.csv` s odpoveďami a `vzorka.jev.corrections.csv` s riadkami  
+na kontrolu.  
+
+Testovacia tabuľka:  
+
+```csv
+id,text
+1,"Faktúra za október mi neprišla, hoci platba odišla."
+2,"Aplikácia na Androide spadne hneď po spustení."
+3,"Balík je podľa sledovania doručený, ale nemám ho."
+4,"Chcem vrátiť peniaze za zdvojenú platbu."
+5,"Kedy bude dostupný nový model?"
+6,"Po zmene karty mi aplikácia hlási chybu platby."
+7,"Chcem zmeniť fakturačnú adresu na novú."
+8,"Aplikácia sa po aktualizácii neprihlási."
+9,"Objednávka číslo 1234 stále neprišla."
+10,"Ako zruším predplatné?"
+11,"Z účtu mi zmizli všetky údaje."
+12,"Prosím o vystavenie duplikátu faktúry."
+13,"Neprišiel mi e-mail s potvrdením objednávky."
+14,"Chcem zmeniť heslo, ale odkaz nefunguje."
+15,"Faktúra obsahuje nesprávnu sumu."
+16,"Doručenie mešká už tri dni."
+17,"Aplikácia mi neukazuje históriu objednávok."
+18,"Predplatné sa mi obnovilo bez súhlasu."
+19,"Ako nastavím dvojfaktorové overenie?"
+20,"Vrátený tovar mi stále nebol preplatený."
+21,"Balík prišiel poškodený."
+22,"Pri prihlásení mi hlási neplatné údaje."
+23,"Chcem previesť účet na inú osobu."
+24,"Platba kartou bola zamietnutá."
+25,"Objednávku som omylom zadal dvakrát."
+26,"Kde nájdem svoju faktúru?"
+27,"Zmenil som adresu, ale zásielka ide na starú."
+28,"Aplikácia sa načíta veľmi pomaly."
+29,"Chcem zrušiť objednávku pred odoslaním."
+30,"Podpora mi neodpovedala už týždeň."
+```
+
+Specifikácia YAML:  
+
+```yaml
+spec: 0
+id: poziadavky
+version: 0.1.0
+license: CC0-1.0
+tested: null
+description: Zaraďte požiadavky zákazníkov a odhadnite naliehavosť.
+state:
+  description: Text požiadavky zákazníka.
+  fields: [text]
+questions:
+  tim:
+    type: choice
+    instructions: "Which team should handle `text`?"
+    options:
+      fakturacia: "Payments, invoices and refunds."
+      technicka: "Bugs, crashes and errors."
+      doprava: "Deliveries, packages and tracking."
+      ucet: "Profile settings and account ownership."
+      unknown: "Cannot tell from the text alone."
+  naliehavost:
+    type: score
+    instructions: "How urgent is `text` for the support team?"
+    levels: [low, normal, high, unknown]
+  vratenie:
+    type: noul
+    instructions: "Does `text` ask for a refund?"
+thresholds:
+  tim: {fakturacia: 0.8, technicka: 0.8, doprava: 0.8, ucet: 0.8}
+  naliehavost: {low: 0.7, normal: 0.7, high: 0.7}
+  vratenie: {true: 0.85, false: 0.85}
+```
+
+Nástroj autoakceptuje odpoveď len vtedy, keď jej pravdepodobnosť  
+prekročí prah v `thresholds`. Ostatné riadky skončia vo fronte  
+na kontrolu.  
+
+> **Tip:** Pridajte `--model jev-1.14.0`, aby výsledky zostali  
+> stabilné aj po vydaní novej verzie.  
+
 ## 6. Projekt: Jev hrá hada
 
 V hre Snake (had) sa had pohybuje po mriežke, zbiera jablká a s každým  
@@ -934,8 +1225,6 @@ priečinka `06-snake` vedľa súboru `snake_game3.py`.
 ### Kód hry
 
 Kód je pôvodný program autora a má anglické názvy aj komentáre.  
-
-Súbor `jev-priklady/06-snake/snake_game3.py`:  
 
 ```python
 """JEv decides every single move, one step at a time.
@@ -1569,6 +1858,9 @@ skript, ktorý roztriedi e-maily zo súboru CSV do troch kategórií.“
 | playground | playground | skúšobná stránka v prehliadači |  
 | skill | skill | návod a nástroje pre AI agenta |  
 | guardrail | strážca | kontrola vstupu alebo výstupu |  
+| thread | vlákno | paralelne bežiaca časť programu |  
+| board signature | podpis plochy | identifikátor konkrétnej plochy v hre |  
+| retry policy | politika opakovania | pravidlá opakovania pri chybe |  
 
 ## Zdroje
 
@@ -1584,6 +1876,8 @@ skript, ktorý roztriedi e-maily zo súboru CSV do troch kategórií.“
 - Chybové kódy: https://docs.typesafe.ai/api/errors  
 - Python SDK: https://docs.typesafe.ai/sdk/python/  
 - Agent skill: https://docs.typesafe.ai/agent-skill  
+- Nástroj jev-table: https://github.com/dtduc-git/jev-table  
+- Formát jev-packs: https://github.com/dtduc-git/jev-packs  
 - Konzola a Playground: https://console.typesafe.ai/playground  
 - Predstavenie modelu:  
   https://typesafe.ai/blog/introducing-system-one-models-and-jev  
