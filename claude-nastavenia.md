@@ -28,8 +28,9 @@ skôr, než začnete niečo hľadať v nesprávnom súbore:
 MCP (Model Context Protocol) je spôsob, ako agentovi pripojiť externé  
 nástroje.  
 
-Prompt je jednorazový. Nastavenie pretrvá aj po zatvorení relácie a platí  
-v paneli VS Code rovnako ako v príkazovom riadku. Práve preto sa vyplatí  
+Prompt je jednorazový. Nastavenie pretrvá aj po zatvorení relácie. Model,  
+pravidlá, premenné a hooky platia v paneli VS Code rovnako ako  
+v príkazovom riadku; vzhľad si panel riadi sám. Práve preto sa vyplatí  
 vedieť, ktorý súbor ktorú vec riadi.  
 
 ```mermaid
@@ -77,7 +78,7 @@ píše ako `~/.claude`; na Windows ide o to isté miesto.
 Používateľský súbor je váš osobný. Projektový súbor je spoločný a jeho  
 zmeny vidia kolegovia po naklonovaní repozitára. Lokálny súbor je vaša  
 výnimka, ktorá nepatrí do gitu. Spravovaný súbor nasadzuje organizácia  
-a vy ho needitujete.  
+a vy ho neupravujete.  
 
 Claude Code si okrem toho drží piaty súbor `~/.claude.json`. Ten si píše  
 sám a nepatrí do rúk: obsahuje údaje o účte, zoznam MCP serverov, dôveru  
@@ -238,7 +239,7 @@ konverzácie v paneli sa vyberá v tomto poradí:
 1. `claudeCode.initialPermissionMode`,  
 2. naposledy zvolený režim, ak to bol Manual, Edit automatically alebo Auto,  
 3. `permissions.defaultMode` z používateľského alebo spravovaného súboru,  
-4. vstavaný predvolený režim pre váš účet a organizáciu.  
+4. vstavaný predvolený režim pre váš plán, poskytovateľa a organizáciu.  
 
 Voľba Plan alebo Bypass platí len pre konkrétnu konverzáciu. Od verzie  
 2.1.283 je vstavaným predvoleným režimom v termináli aj v paneli `auto`,  
@@ -909,8 +910,9 @@ Dodržte tieto zásady:
   allow**.  
 - Projektový súbor je **spoločný a verzovaný**, lokálny je **osobný a  
   necommitovaný**.  
-- Panel VS Code a terminál čítajú **rovnaké súbory**, ale panel má  
-  vlastné nastavenia rozšírenia a neotvára `/config`.  
+- Panel VS Code a terminál čítajú **rovnaké súbory**, až na určenie  
+  počiatočného režimu; panel má vlastné nastavenia rozšírenia a neotvára  
+  `/config`.  
 - Po každej zmene overte **`/status`**, **`claude doctor`** a správanie  
   pravidiel.  
 - Nastavenia nie sú bezpečnostná hranica; tajomstvá do nich nepatria a  
@@ -929,7 +931,7 @@ Dodržte tieto zásady:
 | managed settings | spravované nastavenia | politika od organizácie |  
 | environment variable | premenná prostredia | hodnota dostupná procesom |  
 | hook | háčik | skript spustený pri udalosti agenta |  
-| plugin | rozšírenie | balík skillov, príkazov alebo hookov |  
+| plugin | rozšírenie | balík zručností, príkazov alebo hookov |  
 | workspace trust | dôvera v priečinok | potvrdenie, že projektu dôverujete |  
 | Settings Error | chyba nastavení | neplatný JSON alebo odmietnutá hodnota |  
 
@@ -951,3 +953,7 @@ Dodržte tieto zásady:
   code.claude.com/docs/en/debug-your-config  
 - Claude Code – Sandboxing:  
   code.claude.com/docs/en/sandboxing  
+- Claude Code – Status line:  
+  code.claude.com/docs/en/statusline  
+- Claude Code – Managed settings:  
+  code.claude.com/docs/en/managed-settings  
