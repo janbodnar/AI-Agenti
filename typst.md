@@ -482,6 +482,8 @@ Príkaz `#import` načíta funkciu z iného súboru. Päta používa
 
 ### 4.4 Faktúra z JSON
 
+"terminal.integrated.defaultProfile.windows": "Command Prompt",
+
 Dokument môže byť len vyplnená šablóna. Dáta sú v samostatnom súbore,  
 ktorý môže vytvoriť agent alebo skript.  
 
