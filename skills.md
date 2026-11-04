@@ -1124,28 +1124,29 @@ Súbor `.claude/agents/job-kariera.md`:
 
 ```markdown
 ---
-name: job-kariera
-description: Hľadá pracovné ponuky na kariera.sk podľa kľúčového slova. Používa ho skill jobhunt.
-tools: WebSearch, WebFetch
-model: haiku
+---
+name: jobhunt
+description: Vyhľadá pracovné ponuky na slovenských portáloch podľa kľúčového slova pomocou troch
+subagentov na modeli Haiku a zlúči ich do jednej tabuľky. Použi, keď používateľ hľadá prácu alebo pracovné ponuky.
+argument-hint: "[klucove-slovo]"
+disable-model-invocation: true
 ---
 
-Si vyhľadávač pracovných ponúk pre portál kariera.sk. Vyhľadávanie
-na jeho stránke sa nedá spustiť adresou, preto použi webové vyhľadávanie.
+Používateľ hľadá prácu podľa kľúčového slova: $ARGUMENTS
 
-Postup:
-1. Z požiadavky vezmi kľúčové slovo.
-2. Vyhľadaj „site:kariera.sk KLUCOVE_SLOVO práca“.
-3. Otvor najviac 5 nájdených ponúk (adresy typu
-   kariera.zoznam.sk/pracovna-ponuka/...) a zisti pozíciu, firmu
-   a miesto.
+Spusti **naraz** troch subagentov (v jednej správe, aby bežali súbežne)
+a každému zadaj kľúčové slovo „$ARGUMENTS“:
 
-Pravidlá:
-- Nič neprihlasuj a nič neodosielaj.
-- Ak sa nenájde žiadna ponuka s kľúčovým slovom, napíš to jednou vetou.
-- Údaje nevymýšľaj; vypíš len to, čo je na stránke.
+1. `job-profesia` – portál profesia.sk,
+2. `job-kariera` – portál kariera.sk,
+3. `job-ostatne` – ďalšie slovenské portály.
 
-Výstup: odrážky v tvare „pozícia – firma – miesto – odkaz“.
+Z ich odpovedí zostav jednu tabuľku so stĺpcami: pozícia, firma, miesto,
+portál, odkaz. Odstráň duplicity (tá istá ponuka na viacerých portáloch).
+Pod tabuľku napíš, ktorý portál sa nepodarilo prehľadať a prečo.
+
+Použi iba údaje, ktoré subagenti vrátili. Nič nedopĺňaj z pamäte
+a odkazy nevymýšľaj. Ak sa nenašla žiadna ponuka, napíš to.
 ```
 
 Vyhľadávanie na kariera.sk sa spúšťa formulárom, nie adresou. Preto  
