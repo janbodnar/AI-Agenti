@@ -1089,7 +1089,7 @@ Telo skillu je zámerne krátke: určuje, koho zavolať, ako zlúčiť
 výsledky a čo nesmie robiť (vymýšľať odkazy). Samotné hľadanie je  
 v definíciách subagentov.  
 
-Súbor `.claude/agents/job-profesia.md`:  
+Súbor `.claude/skills/jobhunt/agents/job-profesia.md`:  
 
 ```markdown
 ---
@@ -1120,7 +1120,7 @@ Výstup: odrážky v tvare „pozícia – firma – miesto – odkaz“.
 Portál profesia.sk má vyhľadávanie dostupné cez adresu, preto stačí  
 nástroj `WebFetch` (načítanie jednej stránky).  
 
-Súbor `.claude/agents/job-kariera.md`:  
+Súbor `.claude/skills/jobhunt/agents/job-kariera.md`:  
 
 ```markdown
 ---
@@ -1153,7 +1153,7 @@ Vyhľadávanie na kariera.sk sa spúšťa formulárom, nie adresou. Preto
 subagent dostal `WebSearch` (webové vyhľadávanie) a ponuky otvára až  
 podľa nájdených odkazov.  
 
-Súbor `.claude/agents/job-ostatne.md`:  
+Súbor `.claude/skills/jobhunt/agents/job-ostatne.md`:  
 
 ```markdown
 ---
