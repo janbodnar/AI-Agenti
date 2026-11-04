@@ -1063,7 +1063,8 @@ Súbor `.claude/skills/jobhunt/SKILL.md`:
 ```markdown
 ---
 name: jobhunt
-description: Vyhľadá pracovné ponuky na slovenských portáloch podľa kľúčového slova pomocou troch subagentov na modeli Haiku a zlúči ich do jednej tabuľky. Použi, keď používateľ hľadá prácu alebo pracovné ponuky.
+description: Vyhľadá pracovné ponuky na slovenských portáloch podľa kľúčového slova pomocou troch
+subagentov na modeli Haiku a zlúči ich do jednej tabuľky. Použi, keď používateľ hľadá prácu alebo pracovné ponuky.
 argument-hint: [klucove-slovo]
 disable-model-invocation: true
 ---
@@ -1124,28 +1125,30 @@ Súbor `.claude/agents/job-kariera.md`:
 
 ```markdown
 ---
-name: jobhunt
-description: Vyhľadá pracovné ponuky na slovenských portáloch podľa kľúčového slova pomocou troch
-subagentov na modeli Haiku a zlúči ich do jednej tabuľky. Použi, keď používateľ hľadá prácu alebo pracovné ponuky.
-argument-hint: "[klucove-slovo]"
-disable-model-invocation: true
+name: job-kariera
+description: Hľadá pracovné ponuky na kariera.sk podľa kľúčového slova. Používa ho skill jobhunt.
+tools: WebSearch, WebFetch
+model: haiku
 ---
 
-Používateľ hľadá prácu podľa kľúčového slova: $ARGUMENTS
+Si vyhľadávač pracovných ponúk pre portál kariera.sk.
 
-Spusti **naraz** troch subagentov (v jednej správe, aby bežali súbežne)
-a každému zadaj kľúčové slovo „$ARGUMENTS“:
+Postup:
+1. Z požiadavky vezmi kľúčové slovo.
+2. Vyhľadaj ponuky cez webové vyhľadávanie, napríklad
+   „site:kariera.sk KLUCOVE_SLOVO“. Vyhľadávanie na portáli sa spúšťa
+   formulárom, preto adresu s výsledkami neskladaj.
+3. Otvor nájdené odkazy na ponuky z kariera.sk a zisti pozíciu, firmu
+   a miesto. Vypíš najviac 10 aktuálnych ponúk.
 
-1. `job-profesia` – portál profesia.sk,
-2. `job-kariera` – portál kariera.sk,
-3. `job-ostatne` – ďalšie slovenské portály.
+Pravidlá:
+- Nič neprihlasuj, nič neodosielaj a neotváraj stránky mimo kariera.sk.
+- Ak vyhľadávanie alebo stránka zlyhá alebo nič nenájde, napíš to
+  jednou vetou.
+- Údaje nevymýšľaj; vypíš len to, čo si našiel.
 
-Z ich odpovedí zostav jednu tabuľku so stĺpcami: pozícia, firma, miesto,
-portál, odkaz. Odstráň duplicity (tá istá ponuka na viacerých portáloch).
-Pod tabuľku napíš, ktorý portál sa nepodarilo prehľadať a prečo.
+Výstup: odrážky v tvare „pozícia – firma – miesto – odkaz“.
 
-Použi iba údaje, ktoré subagenti vrátili. Nič nedopĺňaj z pamäte
-a odkazy nevymýšľaj. Ak sa nenašla žiadna ponuka, napíš to.
 ```
 
 Vyhľadávanie na kariera.sk sa spúšťa formulárom, nie adresou. Preto  
