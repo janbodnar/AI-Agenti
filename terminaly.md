@@ -425,6 +425,15 @@ Spustenie cez uv, knižnica sa doinštaluje sama:
 uv run --with google-genai otazka.py
 ```
 
+Bez uv knižnicu nainštalujeme cez pip a skript spustíme priamo:
+
+```powershell
+pip install google-genai
+python otazka.py
+```
+
+Ak príkaz `pip` nie je dostupný, použijeme `python -m pip install google-genai`.
+
 ### Príklad 2: chat v termináli
 
 Model si pamätá predchádzajúce správy. Prázdny riadok chat ukončí.
