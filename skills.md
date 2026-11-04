@@ -454,21 +454,23 @@ Súbor `.claude/skills/datum-cas/SKILL.md`:
 ```markdown
 ---
 name: datum-cas
-description: Zistí aktuálny dátum, čas, deň v týždni, týždeň v roku a počet dní do Vianoc. Použi, keď sa používateľ pýta, aký je dnes dátum, koľko je hodín, ktorý je týždeň alebo koľko dní zostáva do Vianoc.
-allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/datum.py)
+description: Zistí aktuálny dátum, čas, deň v týždni, týždeň v roku a počet dní do Vianoc. Použi,
+keď sa používateľ pýta, aký je dnes dátum, koľko je hodín, ktorý je týždeň alebo koľko dní zostáva do Vianoc.
 ---
 
 ## Aktuálne údaje
 
-!`python3 ${CLAUDE_SKILL_DIR}/scripts/datum.py`
+!`python ${CLAUDE_SKILL_DIR}/scripts/datum.py`
 
 ## Pokyny
 
 Odpovedz na otázku používateľa výhradne z údajov vyššie.
 Dátumy a počty dní nepočítaj sám a nepoužívaj dátum zo svojej pamäte.
 
-Odpoveď nech je krátka: len to, na čo sa používateľ pýtal.
-Ak sa opýtal všeobecne, vypíš všetky údaje.
+Výstup skriptu používateľ v chate nevidí. Preto ho vždy skopíruj
+do odpovede celý a bez zmien, ako zoznam s odrážkami.
+
+Pod zoznam pridaj jednu krátku vetu s priamou odpoveďou na otázku.
 ```
 
 Pole `allowed-tools` povoľuje práve tento jeden príkaz. Bez neho by sa  
