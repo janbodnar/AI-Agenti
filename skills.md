@@ -1051,11 +1051,11 @@ flowchart TD
 06-jobhunt/
 └── .claude/
     ├── skills/jobhunt/
-    │   └── SKILL.md
-    └── agents/
-        ├── job-profesia.md
-        ├── job-kariera.md
-        └── job-ostatne.md
+               └── SKILL.md
+               └── agents/
+                   ├── job-profesia.md
+                   ├── job-kariera.md
+                   └── job-ostatne.md
 ```
 
 Súbor `.claude/skills/jobhunt/SKILL.md`:  
