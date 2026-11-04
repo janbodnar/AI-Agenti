@@ -58,7 +58,7 @@ Dôležité pravidlo o bundloch: ak modul vráti 10 bundlov, každý ďalší
 modul sa spustí 10-krát. Ak chcete jeden výsledok, bundly treba spojiť  
 agregátorom (pozri príklad 2).  
 
-![Okno s bundlom: časti INPUT a OUTPUT](obrazky/make/bundle.png)  
+![Okno s bundlom: časti INPUT a OUTPUT](data/bundle.png)  
 *Obrázok 1: Jeden bundle v okne modulu. Input je to, čo Make poslal  
 do aplikácie, Output to, čo sa vrátilo.  
 Zdroj: help.make.com/mapping.*  
@@ -66,7 +66,7 @@ Zdroj: help.make.com/mapping.*
 Namapované dáta vyzerajú v poli ako farebný štítok. Nikdy ich nepíšte  
 ručne, vždy ich vkladajte kliknutím v mapovacom paneli.  
 
-![Pole Text s namapovaným štítkom 1. Text content](obrazky/make/mapovanie.png)  
+![Pole Text s namapovaným štítkom 1. Text content](data/mapovanie.png)  
 *Obrázok 2: Namapovaná hodnota má podobu farebného štítku s číslom  
 modulu. Prepínač Map vpravo pole prepne do mapovacieho režimu.  
 Zdroj: help.make.com/mapping.*  
@@ -137,7 +137,7 @@ pre pokročilé použitie.
 | Data structures | Definície formátu dát, napr. aké polia má JSON |  
 | Custom Apps | Vlastné konektory pre služby, ktoré Make nepodporuje |  
 
-![Plátno scenára v Make s ľavým menu a spodnou lištou](obrazky/make/platno.png)  
+![Plátno scenára v Make s ľavým menu a spodnou lištou](data/platno.png)  
 *Obrázok 3: Ľavé menu, plátno s modulmi a spodná lišta s Run once  
 a plánom. Čísla v bublinách ukazujú počet spracovaných bundlov.  
 Zdroj: help.make.com/step-7-test-the-final-scenario.*  
@@ -156,7 +156,7 @@ Plán nastavíte kliknutím na hodiny pri prvom module alebo na chip
 s časom v spodnej lište. Predvolená hodnota je **Every 15 minutes**  
 a na bezplatnom pláne je to zároveň najkratší možný interval.  
 
-![Panel Schedule settings s intervalom 15 minút](obrazky/make/plan.png)  
+![Panel Schedule settings s intervalom 15 minút](data/plan.png)  
 *Obrázok 4: Nastavenie plánu. Vľavo dole je prepínač  
 Advanced settings, vpravo tlačidlo Save.  
 Zdroj: help.make.com/schedule-a-scenario.*  
@@ -167,7 +167,7 @@ Po každom behu sa nad modulmi objavia bubliny s číslom. Kliknutím na
 bublinu uvidíte vstup (Input) a výstup (Output) modulu. To je hlavný  
 nástroj na hľadanie chýb.  
 
-![Panel modulu: INPUT, OUTPUT, Credit usage](obrazky/make/panel-modulu.png)  
+![Panel modulu: INPUT, OUTPUT, Credit usage](data/panel-modulu.png)  
 *Obrázok 5: Panel modulu po behu. Vpravo je zoznam operácií, dole  
 spotreba kreditov (Credit usage).  
 Zdroj: help.make.com/step-7-test-the-final-scenario.*  
@@ -702,7 +702,7 @@ Scenár, ktorý má agentovi vracať dáta, musí mať plán **On demand**, byť
 aktívny a končiť modulom **Scenarios → Return output**. Bez toho agent  
 dostane prázdnu odpoveď.  
 
-![Modul Make AI Agent s panelom Tool settings](obrazky/make/agent.png)  
+![Modul Make AI Agent s panelom Tool settings](data/agent.png)  
 *Obrázok 6: Agent a jeho nástroj. V paneli Tool settings sa nastavuje  
 popis nástroja a polia, ktoré agentovi vráti.  
 Zdroj: help.make.com/create-your-first-ai-agent.*  
