@@ -413,7 +413,7 @@ from google import genai
 client = genai.Client()
 
 response = client.models.generate_content(
-    model="gemini-2.5-flash",
+    model="gemini-3.5-flash-lite",
     contents="Vysvetli v troch vetách, čo je PowerShell.",
 )
 print(response.text)
@@ -443,7 +443,7 @@ Model si pamätá predchádzajúce správy. Prázdny riadok chat ukončí.
 from google import genai
 
 client = genai.Client()
-chat = client.chats.create(model="gemini-2.5-flash")
+chat = client.chats.create(model="gemini-3.5-flash-lite")
 
 while True:
     otazka = input("Ty: ")
@@ -472,7 +472,7 @@ text = Path(subor).read_text(encoding="utf-8")
 
 client = genai.Client()
 response = client.models.generate_content(
-    model="gemini-2.5-flash",
+    model="gemini-3.5-flash-lite",
     contents=f"Zhrň tento text do piatich bodov po slovensky:\n\n{text}",
 )
 print(response.text)
