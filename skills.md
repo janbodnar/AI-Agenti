@@ -1063,10 +1063,9 @@ Súbor `.claude/skills/jobhunt/SKILL.md`:
 ```markdown
 ---
 name: jobhunt
-description: Vyhľadá pracovné ponuky na slovenských portáloch podľa kľúčového slova pomocou troch
-subagentov na modeli Haiku a zlúči ich do jednej tabuľky. Použi, keď používateľ hľadá prácu alebo pracovné ponuky.
-argument-hint: [klucove-slovo]
-disable-model-invocation: true
+description: Vyhľadá pracovné ponuky na slovenských portáloch podľa kľúčového slova pomocou troch subagentov
+na modeli Haiku a zlúči ich do jednej tabuľky. Použi, keď používateľ hľadá prácu alebo pracovné ponuky.
+argument-hint: "[klucove-slovo]"
 ---
 
 Používateľ hľadá prácu podľa kľúčového slova: $ARGUMENTS
@@ -1074,9 +1073,9 @@ Používateľ hľadá prácu podľa kľúčového slova: $ARGUMENTS
 Spusti **naraz** troch subagentov (v jednej správe, aby bežali súbežne)
 a každému zadaj kľúčové slovo „$ARGUMENTS“:
 
-1. `job-profesia` – portál profesia.sk,
-2. `job-kariera` – portál kariera.sk,
-3. `job-ostatne` – ďalšie slovenské portály.
+1. `agents/job-profesia` – portál profesia.sk,
+2. `agents/job-kariera` – portál kariera.sk,
+3. `agents/job-ostatne` – ďalšie slovenské portály.
 
 Z ich odpovedí zostav jednu tabuľku so stĺpcami: pozícia, firma, miesto,
 portál, odkaz. Odstráň duplicity (tá istá ponuka na viacerých portáloch).
@@ -1148,7 +1147,6 @@ Pravidlá:
 - Údaje nevymýšľaj; vypíš len to, čo si našiel.
 
 Výstup: odrážky v tvare „pozícia – firma – miesto – odkaz“.
-
 ```
 
 Vyhľadávanie na kariera.sk sa spúšťa formulárom, nie adresou. Preto  
