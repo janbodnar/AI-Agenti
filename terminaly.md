@@ -463,12 +463,12 @@ Skript načíta textový súbor a požiada model o zhrnutie.
 
 ```python
 # zhrn.py
-import sys
 from pathlib import Path
 
 from google import genai
 
-text = Path(sys.argv[1]).read_text(encoding="utf-8")
+subor = "uv.md"
+text = Path(subor).read_text(encoding="utf-8")
 
 client = genai.Client()
 response = client.models.generate_content(
@@ -479,7 +479,7 @@ print(response.text)
 ```
 
 ```powershell
-uv run --with google-genai zhrn.py uv.md
+uv run --with google-genai zhrn.py
 ```
 
 Všimnite si relatívnu cestu `uv.md`. Súbor sa hľadá v aktuálnom
