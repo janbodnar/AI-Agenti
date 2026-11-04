@@ -596,12 +596,11 @@ Súbor `.claude/skills/trhy/SKILL.md`:
 ---
 name: trhy
 description: Ukáže aktuálne ceny akcií a kryptomien (Apple, Microsoft, NVIDIA, Bitcoin, Litecoin) a ich dennú zmenu. Použi, keď sa používateľ pýta na stav na trhoch, ceny akcií alebo kurz BTC a LTC.
-allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/ceny.py)
 ---
 
 ## Aktuálne ceny
 
-!`python3 ${CLAUDE_SKILL_DIR}/scripts/ceny.py`
+!`python ${CLAUDE_SKILL_DIR}/scripts/ceny.py`
 
 ## Pokyny
 
