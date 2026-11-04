@@ -61,7 +61,7 @@ nepotrebujete, a spomaľoval by všetko ostatné. Rozdiel stručne:
 
 Skill je priečinok, v ktorom musí byť súbor `SKILL.md`. Súbor má dve  
 časti: hlavičku (metadáta) a telo (pokyny). Hlavička je medzi dvoma  
-riadkami `---`. Telo je obyčajný text v Markdowne, napísaný ako pokyn  
+riadkami ``. Telo je obyčajný text v Markdowne, napísaný ako pokyn  
 pre agenta.  
 
 ```text
@@ -78,7 +78,7 @@ Skills sa načítajú v troch stupňoch. Vďaka tomu môžete mať nainštalovan
 veľa skills a kontext sa nezapchá.  
 
 | Stupeň | Čo sa načíta | Kedy | Približná cena |  
-| --- | --- | --- | --- |  
+|  |  |  |  |  
 | 1 | `name` a `description` | pri štarte | okolo 100 tokenov |  
 | 2 | telo `SKILL.md` | keď sa skill použije | odporúča sa do 5 000 |  
 | 3 | súbory a skripty | až keď ich telo spomenie | nič, kým sa nečítajú |  
@@ -121,7 +121,7 @@ Code má ďalšie polia, ktoré mení správanie skillu. Všetky sú voliteľné
 ale `description` sa odporúča vždy.  
 
 | Pole | Význam |  
-| --- | --- |  
+|  |  |  
 | `name` | meno príkazu; predvolene názov priečinka |  
 | `description` | čo skill robí a kedy ho použiť |  
 | `when_to_use` | doplnok k popisu (frázy, príklady požiadaviek) |  
@@ -140,7 +140,7 @@ ale `description` sa odporúča vždy.
 
 Dve pasce, ktoré poznáte z kapitoly o príkazoch:  
 
-- otváracia `---` musí byť na **prvom riadku** súboru, inak sa celý  
+- otváracia `` musí byť na **prvom riadku** súboru, inak sa celý  
   súbor berie ako telo a polia sa ignorujú,  
 - neznáme pole sa **ticho ignoruje**; preklep v `allowed-tools`  
   teda nevyvolá chybu, len sa nič nestane.  
@@ -1123,7 +1123,6 @@ nástroj `WebFetch` (načítanie jednej stránky).
 Súbor `.claude/agents/job-kariera.md`:  
 
 ```markdown
----
 ---
 name: jobhunt
 description: Vyhľadá pracovné ponuky na slovenských portáloch podľa kľúčového slova pomocou troch
