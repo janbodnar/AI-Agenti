@@ -3,6 +3,8 @@
 *Verzia 1.1 · stav k novembru 2026. Nástroje sa menia rýchlo; pred  
 nasadením si overte aktuálnu dokumentáciu.*  
 
+https://claude.ai/share/80e916c6-2825-464c-af5e-61f1725efe53
+
 ## 1. Prečo artefakty
 
 Claude dokáže okrem textu vytvoriť aj **artefakt** – samostatný výstup,  
