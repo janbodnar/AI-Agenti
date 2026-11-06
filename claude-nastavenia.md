@@ -626,7 +626,46 @@ sa naozaj načítal.
 3. požiadajte o `npm run lint` a o `git push`,  
 4. zistite, či je súbor v `.gitignore`, a ak nie, doplňte ho.  
 
-### 5.4 Stavový riadok v termináli
+### 5.4 Rozdiel medzi settings.json a settings.local.json
+
+Názvy sa líšia jedným slovom, úloha je však iná. `settings.json` je  
+spoločný základ projektu: commitne sa, platí pre každého a tvorí ho tím.  
+`settings.local.json` je osobná nadstavba: necommitne sa, platí len pre  
+vás a má doplniť spoločný základ bez toho, aby ho menil.
+
+| Hľadisko | `settings.json` | `settings.local.json` |  
+| --- | --- | --- |  
+| Účel | spoločné pravidlá projektu | osobná výnimka jedného človeka |  
+| Git | commitnutý a verzovaný | necommitnutý, v `.gitignore` |  
+| Koho sa týka | každého, kto v projekte pracuje | len vás na vašom počítači |  
+| Vzniká | vytvorí a commitne tím | Claude Code pri prvom povolení, alebo ručne |  
+| Prednosť | nižšia | vyššia, prebíja `settings.json` |  
+| Zoznamy `allow`, `ask`, `deny` | tvoria základ | pridávajú sa k základu, nerušia ho |  
+| Vhodný obsah | model, `env` a pravidlá pre tím | silnejší model, osobný lint, dočasné povolenie |  
+| Nevhodný obsah | osobné cesty a tajomstvá | pravidlá, na ktorých stojí bezpečnosť tímu |  
+
+Oba súbory sa načítajú naraz. Nejde teda o „buď – alebo“: lokálny súbor  
+základ nenahrádza, iba ho dopĺňa. Pri skalárnom kľúči, akým je `model`,  
+vyhrá hodnota z lokálneho súboru. Pri zoznamoch sa položky spoja  
+a vyhodnotia v poradí `deny`, `ask`, `allow`; lokálne `allow` preto  
+nezruší projektové `deny`.
+
+> **Pozor:** `settings.local.json` nie je miesto na obchádzanie tímových  
+> pravidiel. Pravidlo `deny` z projektového súboru platí aj proti  
+> lokálnemu `allow`. Ak potrebujete niečo naozaj vypnúť, patrí to do  
+> spoločného súboru po dohode, nie do osobného.
+
+Rovnako ako projektový súbor nemôže ani lokálny nastaviť `defaultMode` na  
+`auto` alebo `bypassPermissions`; tieto hodnoty sa čítajú len  
+z používateľského alebo spravovaného súboru.
+
+Názov `settings.json` sám o sebe nič nehovorí: ten istý názov má  
+používateľský (`~/.claude/settings.json`), projektový  
+(`<projekt>/.claude/settings.json`) aj spravovaný súbor.  
+`settings.local.json` existuje len v projektovom priečinku `.claude`, nie  
+v profile. Pri ladení preto vždy rozlišujte, ktorý z nich máte otvorený.
+
+### 5.5 Stavový riadok v termináli
 
 Stavový riadok sa zobrazuje pod promptom v terminálovom režime. Na Windows  
 ho spúšťajte cez `powershell` a v ceste používajte dopredu smerujúce  
